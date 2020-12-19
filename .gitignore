@@ -1,0 +1,16 @@
+node_modules
+
+# editors
+.idea/
+.vscode/
+
+# log
+*.log*
+
+# compiled
+build/
+
+# local files
+*/.env.local
+
+.eslintcache

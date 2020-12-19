@@ -1,0 +1,198 @@
+import React, { useMemo } from "react";
+// @types/react-table is not so good,
+// that's why "any" and "!" is being used often in this file
+import {
+  useTable,
+  useFilters,
+  useGlobalFilter,
+  usePagination
+} from "react-table";
+import useSWR from "swr";
+import {
+  ChevronDoubleLeft,
+  ChevronDoubleRight,
+  ChevronLeft,
+  ChevronRight
+} from "react-bootstrap-icons";
+
+import { getAllUrls } from "../../common/api";
+
+import Filter from "./DefaultColumnFilter/DefaultColumnFilter";
+
+import "./ManageURLs.scss";
+import { EditableCell } from "./EditableCell/EditableCell";
+import { useDispatch } from "react-redux";
+import { resetEditableCell } from "../../store/editable-cell/slice";
+
+export const ManageURLs = () => {
+  const dispatch = useDispatch();
+
+  const { data, error } = useSWR(
+    "getAllUrls",
+    () => getAllUrls().then(res => res.json()),
+    { refreshInterval: 1000 }
+  );
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: "Alias",
+        accessor: "alias"
+      },
+      {
+        Header: "URL",
+        accessor: "url",
+        Cell: EditableCell
+      }
+    ],
+    []
+  );
+
+  const initialState: any = useMemo(() => ({ pageSize: 5 }), []);
+
+  const defaultColumn: any = useMemo(() => ({ Filter }), []);
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize }
+  }: any = useTable(
+    {
+      columns,
+      data: data || [],
+      defaultColumn,
+      initialState
+    },
+    useFilters,
+    useGlobalFilter,
+    usePagination
+  );
+  return (
+    <div
+      className="container"
+      onDoubleClick={() => dispatch(resetEditableCell())}
+    >
+      <div className="d-flex justify-content-around">
+        <ul className="pagination">
+          <li
+            className={`page-item ${!canPreviousPage && " disabled"}`}
+            onClick={() => gotoPage(0)}
+          >
+            <span className="page-link">
+              <ChevronDoubleLeft />
+            </span>
+          </li>
+          <li
+            className={`page-item ${!canPreviousPage && " disabled"}`}
+            onClick={() => previousPage()}
+          >
+            <span className="page-link">
+              <ChevronLeft />
+            </span>
+          </li>
+          <li
+            className={`page-item ${!canNextPage && " disabled"}`}
+            onClick={() => nextPage()}
+          >
+            <span className="page-link">
+              <ChevronRight />
+            </span>
+          </li>
+          <li
+            className={`page-item ${!canNextPage && " disabled"}`}
+            onClick={() => gotoPage(pageCount - 1)}
+          >
+            <span className="page-link">
+              <ChevronDoubleRight />
+            </span>
+          </li>
+        </ul>
+        <h3>
+          Page {pageIndex + 1} of {pageOptions.length}
+        </h3>
+        <div className="form-inline">
+          <div className="form-group">
+            <label htmlFor="goToPage">Go to page</label>
+            <input
+              type="number"
+              name="goToPage"
+              className="form-control"
+              value={pageIndex + 1}
+              onChange={e => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+            />
+          </div>
+          <div className="form-group">
+            <select
+              className="form-control"
+              value={pageSize}
+              onChange={e => {
+                setPageSize(Number(e.target.value));
+              }}
+            >
+              {[5, 10, 15, 20].map(pageSize => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize} records
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div className="table-wrapper">
+        {error ? (
+          <div className="alert alert-danger" role="alert">
+            Failed to load
+          </div>
+        ) : !data ? (
+          <div className="alert alert-info" role="alert">
+            loading...
+          </div>
+        ) : (
+          <table {...getTableProps()} className="table table-hover">
+            <thead className="thead-dark">
+              {headerGroups.map(headerGroup => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map(column => (
+                    <th {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                      <div className="form-inline">
+                        {column!.canFilter && column.render("Filter")}
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {page.map(row => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map(cell => (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
+  );
+};
