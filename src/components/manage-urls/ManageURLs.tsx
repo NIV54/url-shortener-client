@@ -83,116 +83,120 @@ export const ManageURLs = () => {
       className="container"
       onDoubleClick={() => dispatch(resetEditableCell())}
     >
-      <div className="d-flex justify-content-around">
-        <ul className="pagination">
-          <li
-            className={`page-item ${!canPreviousPage && " disabled"}`}
-            onClick={() => gotoPage(0)}
-          >
-            <span className="page-link">
-              <ChevronDoubleLeft />
-            </span>
-          </li>
-          <li
-            className={`page-item ${!canPreviousPage && " disabled"}`}
-            onClick={() => previousPage()}
-          >
-            <span className="page-link">
-              <ChevronLeft />
-            </span>
-          </li>
-          <li
-            className={`page-item ${!canNextPage && " disabled"}`}
-            onClick={() => nextPage()}
-          >
-            <span className="page-link">
-              <ChevronRight />
-            </span>
-          </li>
-          <li
-            className={`page-item ${!canNextPage && " disabled"}`}
-            onClick={() => gotoPage(pageCount - 1)}
-          >
-            <span className="page-link">
-              <ChevronDoubleRight />
-            </span>
-          </li>
-        </ul>
-        <h3>
-          Page {pageIndex + 1} of {pageOptions.length}
-        </h3>
-        <div className="form-inline">
-          <div className="form-group">
-            <label htmlFor="goToPage">Go to page</label>
-            <input
-              type="number"
-              name="goToPage"
-              className="form-control"
-              value={pageIndex + 1}
-              onChange={e => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                gotoPage(page);
-              }}
-            />
-          </div>
-          <div className="form-group">
-            <select
-              className="form-control"
-              value={pageSize}
-              onChange={e => {
-                setPageSize(Number(e.target.value));
-              }}
-            >
-              {[5, 10, 15, 20].map(pageSize => (
-                <option key={pageSize} value={pageSize}>
-                  Show {pageSize} records
-                </option>
-              ))}
-            </select>
-          </div>
+      {error ? (
+        <div className="alert alert-danger" role="alert">
+          Failed to load
         </div>
-      </div>
-
-      <div className="table-wrapper">
-        {error ? (
-          <div className="alert alert-danger" role="alert">
-            Failed to load
-          </div>
-        ) : !data ? (
-          <div className="alert alert-info" role="alert">
-            loading...
-          </div>
-        ) : (
-          <table {...getTableProps()} className="table table-hover">
-            <thead className="thead-dark">
-              {headerGroups.map(headerGroup => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map(column => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                      <div className="form-inline">
-                        {column!.canFilter && column.render("Filter")}
-                      </div>
-                    </th>
+      ) : !data ? (
+        <div className="alert alert-info" role="alert">
+          loading...
+        </div>
+      ) : (
+        <>
+          <div className="d-flex justify-content-around">
+            <ul className="pagination">
+              <li
+                className={`page-item ${!canPreviousPage && " disabled"}`}
+                onClick={() => gotoPage(0)}
+              >
+                <span className="page-link">
+                  <ChevronDoubleLeft />
+                </span>
+              </li>
+              <li
+                className={`page-item ${!canPreviousPage && " disabled"}`}
+                onClick={() => previousPage()}
+              >
+                <span className="page-link">
+                  <ChevronLeft />
+                </span>
+              </li>
+              <li
+                className={`page-item ${!canNextPage && " disabled"}`}
+                onClick={() => nextPage()}
+              >
+                <span className="page-link">
+                  <ChevronRight />
+                </span>
+              </li>
+              <li
+                className={`page-item ${!canNextPage && " disabled"}`}
+                onClick={() => gotoPage(pageCount - 1)}
+              >
+                <span className="page-link">
+                  <ChevronDoubleRight />
+                </span>
+              </li>
+            </ul>
+            <h3>
+              Page {pageIndex + 1} of {pageOptions.length}
+            </h3>
+            <div className="form-inline">
+              <div className="form-group">
+                <label htmlFor="goToPage">Go to page</label>
+                <input
+                  type="number"
+                  name="goToPage"
+                  className="form-control"
+                  value={pageIndex + 1}
+                  onChange={e => {
+                    const page = e.target.value
+                      ? Number(e.target.value) - 1
+                      : 0;
+                    gotoPage(page);
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <select
+                  className="form-control"
+                  value={pageSize}
+                  onChange={e => {
+                    setPageSize(Number(e.target.value));
+                  }}
+                >
+                  {[5, 10, 15, 20].map(pageSize => (
+                    <option key={pageSize} value={pageSize}>
+                      Show {pageSize} records
+                    </option>
                   ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {page.map(row => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map(cell => (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="table-wrapper">
+            <table {...getTableProps()} className="table table-hover">
+              <thead className="thead-dark">
+                {headerGroups.map(headerGroup => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map(column => (
+                      <th {...column.getHeaderProps()}>
+                        {column.render("Header")}
+                        <div className="form-inline">
+                          {column!.canFilter && column.render("Filter")}
+                        </div>
+                      </th>
                     ))}
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        )}
-      </div>
+                ))}
+              </thead>
+              <tbody {...getTableBodyProps()}>
+                {page.map(row => {
+                  prepareRow(row);
+                  return (
+                    <tr {...row.getRowProps()}>
+                      {row.cells.map(cell => (
+                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      ))}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
     </div>
   );
 };
