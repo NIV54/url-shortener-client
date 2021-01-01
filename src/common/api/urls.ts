@@ -1,4 +1,4 @@
-import { ShortURL } from "./types/ShortURL";
+import { ShortURL } from "../types/ShortURL";
 
 export const headers = {
   "Content-Type": "application/json",

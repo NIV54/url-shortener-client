@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { CellProps } from "react-table";
 import { useDispatch, useSelector } from "react-redux";
 
-import { deleteUrl, editUrl } from "../../../common/api";
+import { deleteUrl, editUrl } from "../../../common/api/urls";
 import * as messages from "../../../common/user-messages";
 import {
   resetEditableCell,

@@ -15,7 +15,7 @@ import {
   ChevronRight
 } from "react-bootstrap-icons";
 
-import { getAllUrls } from "../../common/api";
+import { getAllUrls } from "../../common/api/urls";
 
 import Filter from "./DefaultColumnFilter/DefaultColumnFilter";
 
