@@ -1,9 +1,5 @@
 import { ShortURL } from "../types/ShortURL";
-
-export const headers = {
-  "Content-Type": "application/json",
-  Accept: "application/json"
-};
+import { headers } from "./headers";
 
 const backend = process.env.REACT_APP_BACKEND_URL;
 const endpoint = "url";
