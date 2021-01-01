@@ -1,4 +1,4 @@
-import { ShortURL } from "../types/ShortURL";
+import { ShortURL } from "../types/ShortURL.type";
 import { headers } from "./headers";
 
 const backend = process.env.REACT_APP_BACKEND_URL;

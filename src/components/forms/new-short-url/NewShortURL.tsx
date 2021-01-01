@@ -6,7 +6,7 @@ import { parse } from "qs";
 import "react-toastify/dist/ReactToastify.css";
 
 import { addUrl } from "../../../common/api/urls";
-import { ShortURL } from "../../../common/types/ShortURL";
+import { ShortURL } from "../../../common/types/ShortURL.type";
 import * as messages from "../../../common/user-messages";
 import { RequiredField } from "../errors/RequiredField";
 
