@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { addUrl } from "../../../common/api";
 import { ShortURL } from "../../../common/types/ShortURL";
 import * as messages from "../../../common/user-messages";
+import { RequiredField } from "../errors/RequiredField";
 
 export const NewShortURL = () => {
   const { search } = useLocation();
@@ -45,7 +46,7 @@ export const NewShortURL = () => {
           ref={register({ required: true })}
         />
       </div>
-      {errors.url && <span>This field is required</span>}
+      {errors.url && <RequiredField />}
       <div className="form-group">
         <label htmlFor="alias">Alias</label>
         <input
@@ -55,7 +56,7 @@ export const NewShortURL = () => {
           ref={register()}
         />
       </div>
-      {errors.alias && <span>This field is required</span>}
+      {errors.alias && <RequiredField />}
       <input type="submit" className="btn btn-primary" />
       {alias && (
         <div className="card mt-3">
