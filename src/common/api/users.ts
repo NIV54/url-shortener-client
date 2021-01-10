@@ -1,3 +1,4 @@
+import { Login } from "../types/Login.type";
 import { Register } from "../types/Register.type";
 import { headers } from "./headers";
 
@@ -10,4 +11,12 @@ export const registerUser = (registrationData: Register) =>
     method: "POST",
     headers,
     body: JSON.stringify(registrationData)
+  });
+
+export const loginUser = (loginData: Login) =>
+  fetch(backendUrl + "/login", {
+    method: "POST",
+    credentials: "include",
+    headers,
+    body: JSON.stringify(loginData)
   });

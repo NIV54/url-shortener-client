@@ -9,6 +9,7 @@ import { store } from "../../store";
 
 import "react-toastify/dist/ReactToastify.css";
 import { SignUp } from "../forms/sign-up/SignUp";
+import { Login } from "../forms/login/Login";
 
 function App() {
   return (
@@ -18,7 +19,10 @@ function App() {
           <Route exact path="/sign-up">
             <SignUp />
           </Route>
-          <Route path="/">
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/">
             <NewShortURL />
             <br />
             <ManageURLs />
