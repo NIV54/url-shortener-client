@@ -2,7 +2,7 @@ import { ShortURL } from "../types/ShortURL.type";
 import { headers } from "./headers";
 
 const backend = process.env.REACT_APP_BACKEND_URL;
-const endpoint = "url";
+const endpoint = "api/url";
 const backendUrl = backend + endpoint;
 
 export const addUrl = ({ url, alias }: ShortURL) =>

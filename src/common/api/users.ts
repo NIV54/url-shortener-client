@@ -3,7 +3,7 @@ import { Register } from "../types/Register.type";
 import { headers } from "./headers";
 
 const backend = process.env.REACT_APP_BACKEND_URL;
-const endpoint = "user";
+const endpoint = "api/user";
 const backendUrl = backend + endpoint;
 
 export const registerUser = (registrationData: Register) =>
