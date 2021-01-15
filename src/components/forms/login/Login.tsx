@@ -14,9 +14,7 @@ export const Login = () => {
 
   const onSubmit = async (values: LoginFields) => {
     const response = await loginUser(values);
-    console.log(response);
     const result = await response.json();
-    console.log(result);
     if (response.ok) {
       toast(messages.success);
     } else {
@@ -27,6 +25,7 @@ export const Login = () => {
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-group">
+        {/* TODO: make this email/username field */}
         <label htmlFor="email">Email</label>
         <input
           type="text"
