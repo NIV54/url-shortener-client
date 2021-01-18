@@ -29,10 +29,7 @@ export const Login = () => {
 
   return (
     <div className="h-100 content-center text-center">
-      <form
-        className="sign-in-form fadeInDown"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="auth-form fadeInDown" onSubmit={handleSubmit(onSubmit)}>
         <img
           className="mb-4 fadeIn-1"
           src={Icon}
