@@ -13,6 +13,7 @@ import { State } from "../../../store";
 
 import "./EditableCell.scss";
 
+// TODO: refactor - value and previous value
 export const EditableCell = (props: CellProps<any, string>) => {
   const dispatch = useDispatch();
   const cellId = useRef(props.cell.getCellProps().key).current as string;
