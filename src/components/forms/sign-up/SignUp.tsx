@@ -14,9 +14,7 @@ export const SignUp = () => {
 
   const onSubmit = async (values: Register) => {
     const response = await registerUser(values);
-    console.log(response);
     const result = await response.json();
-    console.log(result);
     if (response.ok) {
       toast(messages.success);
     } else {
