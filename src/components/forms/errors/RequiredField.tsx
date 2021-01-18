@@ -1,3 +1,3 @@
 import React from "react";
 
-export const RequiredField = () => <span>This field is required</span>;
+export const RequiredField = () => <p>This field is required!</p>;
