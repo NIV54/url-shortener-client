@@ -5,11 +5,12 @@ import { toast } from "react-toastify";
 import { loginUser } from "../../../common/api/users";
 import { Login as LoginFields } from "../../../common/types/Login.type";
 import * as messages from "../../../common/user-messages";
+import { isInvalid } from "../utils/is-invalid";
 
 import Icon from "../../../assets/icon.png";
 
 import "./Login.scss";
-import { isInvalid } from "../utils/is-invalid";
+import "../animations.scss";
 
 export const Login = () => {
   const { register, handleSubmit, errors } = useForm<LoginFields>({
@@ -28,20 +29,23 @@ export const Login = () => {
 
   return (
     <div className="h-100 content-center text-center">
-      <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="sign-in-form fadeInDown"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <img
-          className="mb-4"
+          className="mb-4 fadeIn-1"
           src={Icon}
           alt="Logo should be here..."
           height="144"
           width="144"
         />
-        <h1 className="h3 mb-2 font-weight-normal">Please sign in</h1>
+        <h1 className="h3 mb-2 font-weight-normal fadeIn-2">Please sign in</h1>
         <div className="card-body">
           {/* TODO: make this email/username field */}
           <input
             type="text"
-            className={`form-control ${isInvalid(errors.email)}`}
+            className={`form-control fadeIn-3 ${isInvalid(errors.email)}`}
             name="email"
             placeholder="Email"
             required
@@ -51,21 +55,29 @@ export const Login = () => {
           />
           <input
             type="text"
-            className={`form-control ${isInvalid(errors.password)}`}
+            className={`form-control fadeIn-4 ${isInvalid(errors.password)}`}
             name="password"
             placeholder="Password"
             required
             autoComplete={"off"}
             ref={register({ required: true })}
           />
-          <input type="checkbox" className="mb-4 mr-1" name="remember" />
-          <label htmlFor="remember">Remember me</label>
+          <input
+            type="checkbox"
+            className="mb-4 mr-1 fadeIn-5"
+            name="remember"
+          />
+          <label htmlFor="remember" className="fadeIn-5">
+            Remember me
+          </label>
           <input
             type="submit"
-            className="btn btn-primary btn-lg btn-block"
+            className="btn btn-primary btn-lg btn-block fadeIn-6"
             value="Sign In"
           />
-          <p className="mt-5 mb-3 text-muted">© {new Date().getFullYear()}</p>
+          <p className="mt-5 mb-3 text-muted fadeIn-7">
+            © {new Date().getFullYear()}
+          </p>
         </div>
       </form>
     </div>
