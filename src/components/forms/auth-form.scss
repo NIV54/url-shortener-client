@@ -6,7 +6,7 @@
   .form-control {
     padding: 10px;
     margin-bottom: -1px;
-    &:nth-of-type(2) {
+    &.last-input {
       margin-bottom: 15px;
     }
   }

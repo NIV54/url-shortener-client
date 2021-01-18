@@ -9,7 +9,7 @@ import { isInvalid } from "../utils/is-invalid";
 
 import Icon from "../../../assets/icon.png";
 
-import "./Login.scss";
+import "../auth-form.scss";
 import "../animations.scss";
 
 export const Login = () => {
@@ -55,7 +55,9 @@ export const Login = () => {
           />
           <input
             type="text"
-            className={`form-control fadeIn-4 ${isInvalid(errors.password)}`}
+            className={`form-control last-input fadeIn-4 ${isInvalid(
+              errors.password
+            )}`}
             name="password"
             placeholder="Password"
             required
