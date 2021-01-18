@@ -5,11 +5,11 @@ import { toast } from "react-toastify";
 import { loginUser } from "../../../common/api/users";
 import { Login as LoginFields } from "../../../common/types/Login.type";
 import * as messages from "../../../common/user-messages";
-import { RequiredField } from "../errors/RequiredField";
 
 import Icon from "../../../assets/icon.png";
 
 import "./Login.scss";
+import { isInvalid } from "../utils/is-invalid";
 
 export const Login = () => {
   const { register, handleSubmit, errors } = useForm<LoginFields>({
@@ -41,7 +41,7 @@ export const Login = () => {
           {/* TODO: make this email/username field */}
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${isInvalid(errors.email)}`}
             name="email"
             placeholder="Email"
             required
@@ -49,17 +49,15 @@ export const Login = () => {
             autoComplete={"off"}
             ref={register({ required: true })}
           />
-          {errors.email && <RequiredField />}
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${isInvalid(errors.password)}`}
             name="password"
             placeholder="Password"
             required
             autoComplete={"off"}
             ref={register({ required: true })}
           />
-          {errors.password && <RequiredField />}
           <input type="checkbox" className="mb-4 mr-1" name="remember" />
           <label htmlFor="remember">Remember me</label>
           <input

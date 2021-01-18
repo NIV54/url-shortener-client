@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { addUrl } from "../../../common/api/urls";
 import { ShortURL } from "../../../common/types/ShortURL.type";
 import * as messages from "../../../common/user-messages";
-import { RequiredField } from "../errors/RequiredField";
+import { isInvalid } from "../utils/is-invalid";
 
 export const NewShortURL = () => {
   const { search } = useLocation();
@@ -40,13 +40,12 @@ export const NewShortURL = () => {
       <div className="form-group">
         <label htmlFor="url">Url</label>
         <input
-          className="form-control"
+          className={`form-control ${isInvalid(errors.url)}`}
           type="text"
           name="url"
           ref={register({ required: true })}
         />
       </div>
-      {errors.url && <RequiredField />}
       <div className="form-group">
         <label htmlFor="alias">Alias</label>
         <input
@@ -56,7 +55,6 @@ export const NewShortURL = () => {
           ref={register()}
         />
       </div>
-      {errors.alias && <RequiredField />}
       <input type="submit" className="btn btn-primary" />
       {alias && (
         <div className="card mt-3">

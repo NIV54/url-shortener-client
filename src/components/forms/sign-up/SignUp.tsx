@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { registerUser } from "../../../common/api/users";
 import { Register } from "../../../common/types/Register.type";
 import * as messages from "../../../common/user-messages";
-import { RequiredField } from "../errors/RequiredField";
+import { isInvalid } from "../utils/is-invalid";
 
 export const SignUp = () => {
   const { register, handleSubmit, errors } = useForm<Register>({
@@ -26,7 +26,7 @@ export const SignUp = () => {
 
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
-      <div className="form-group">
+      <div className={`form-group ${isInvalid(errors.email)}`}>
         <label htmlFor="email">Email</label>
         <input
           type="text"
@@ -35,8 +35,7 @@ export const SignUp = () => {
           ref={register({ required: true })}
         />
       </div>
-      {errors.email && <RequiredField />}
-      <div className="form-group">
+      <div className={`form-group ${isInvalid(errors.username)}`}>
         <label htmlFor="username">Username</label>
         <input
           type="text"
@@ -45,8 +44,7 @@ export const SignUp = () => {
           ref={register({ required: true })}
         />
       </div>
-      {errors.username && <RequiredField />}
-      <div className="form-group">
+      <div className={`form-group ${isInvalid(errors.password)}`}>
         <label htmlFor="password">Password</label>
         <input
           type="text"
@@ -55,7 +53,6 @@ export const SignUp = () => {
           ref={register({ required: true })}
         />
       </div>
-      {errors.password && <RequiredField />}
       <input type="submit" className="btn btn-primary" />
     </form>
   );
