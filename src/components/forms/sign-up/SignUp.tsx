@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { registerUser } from "../../../common/api/users";
 import { Register } from "../../../common/types/Register.type";
 import * as messages from "../../../common/user-messages";
+import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
 import { isInvalid } from "../common/utils/is-invalid";
 
 export const SignUp = () => {
@@ -23,35 +24,41 @@ export const SignUp = () => {
   };
 
   return (
-    <form className="container" onSubmit={handleSubmit(onSubmit)}>
-      <div className={`form-group ${isInvalid(errors.email)}`}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          className="form-control"
-          name="email"
-          ref={register({ required: true })}
-        />
-      </div>
-      <div className={`form-group ${isInvalid(errors.username)}`}>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          className="form-control"
-          name="username"
-          ref={register({ required: true })}
-        />
-      </div>
-      <div className={`form-group ${isInvalid(errors.password)}`}>
-        <label htmlFor="password">Password</label>
-        <input
-          type="text"
-          className="form-control"
-          name="password"
-          ref={register({ required: true })}
-        />
-      </div>
-      <input type="submit" className="btn btn-primary" />
-    </form>
+    <AuthFormWrapper
+      title="Sign up"
+      SubmitButtonText="Sign up"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <input
+        type="text"
+        className={`form-control fadeIn-3 ${isInvalid(errors.email)}`}
+        name="email"
+        placeholder="Email"
+        required
+        autoFocus
+        autoComplete={"off"}
+        ref={register({ required: true })}
+      />
+      <input
+        type="text"
+        className={`form-control fadeIn-4 ${isInvalid(errors.username)}`}
+        name="username"
+        placeholder="Username"
+        autoFocus
+        autoComplete={"off"}
+        ref={register({ required: true })}
+      />
+      <input
+        type="text"
+        className={`form-control fadeIn-5 last-input ${isInvalid(
+          errors.password
+        )}`}
+        name="password"
+        placeholder="Password"
+        autoFocus
+        autoComplete={"off"}
+        ref={register({ required: true })}
+      />
+    </AuthFormWrapper>
   );
 };
