@@ -7,12 +7,14 @@ import "../styles/animations.scss";
 
 interface AuthFormWrapperProps {
   title: string;
+  SubmitButtonText?: string;
   onSubmit: (event?: React.BaseSyntheticEvent) => Promise<void>;
 }
 
 export const AuthFormWrapper = ({
   children,
   title,
+  SubmitButtonText = "Submit",
   onSubmit
 }: PropsWithChildren<AuthFormWrapperProps>) => (
   <div className="h-100 content-center text-center">
@@ -26,6 +28,14 @@ export const AuthFormWrapper = ({
       />
       <h1 className="h3 mb-2 font-weight-normal fadeIn-2">{title}</h1>
       <div className="card-body">{children}</div>
+      <input
+        type="submit"
+        className="btn btn-primary btn-lg btn-block fadeIn-6"
+        value={SubmitButtonText}
+      />
+      <p className="mt-5 mb-3 text-muted fadeIn-7">
+        © {new Date().getFullYear()}
+      </p>
     </form>
   </div>
 );

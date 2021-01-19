@@ -26,7 +26,11 @@ export const Login = () => {
   };
 
   return (
-    <AuthFormWrapper title="Please sign in" onSubmit={handleSubmit(onSubmit)}>
+    <AuthFormWrapper
+      title="Please sign in"
+      SubmitButtonText="Sign in"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {/* TODO: make this email/username field */}
       <input
         type="text"
@@ -53,14 +57,6 @@ export const Login = () => {
       <label htmlFor="remember" className="fadeIn-5">
         Remember me
       </label>
-      <input
-        type="submit"
-        className="btn btn-primary btn-lg btn-block fadeIn-6"
-        value="Sign In"
-      />
-      <p className="mt-5 mb-3 text-muted fadeIn-7">
-        © {new Date().getFullYear()}
-      </p>
     </AuthFormWrapper>
   );
 };
