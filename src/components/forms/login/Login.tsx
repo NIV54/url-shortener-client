@@ -38,7 +38,7 @@ export const Login = () => {
     >
       {/* TODO: make this email/username field */}
       <input
-        type="text"
+        type="email"
         className={`form-control fadeIn-3 ${isInvalid(errors.email)}`}
         name="email"
         placeholder="Email"
@@ -48,7 +48,7 @@ export const Login = () => {
         ref={register({ required: true })}
       />
       <input
-        type="text"
+        type="password"
         className={`form-control last-input fadeIn-4 ${isInvalid(
           errors.password
         )}`}

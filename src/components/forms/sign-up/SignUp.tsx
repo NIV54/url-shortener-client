@@ -35,7 +35,7 @@ export const SignUp = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <input
-        type="text"
+        type="email"
         className={`form-control fadeIn-3 ${isInvalid(errors.email)}`}
         name="email"
         placeholder="Email"
@@ -54,7 +54,7 @@ export const SignUp = () => {
         ref={register({ required: true })}
       />
       <input
-        type="text"
+        type="password"
         className={`form-control fadeIn-5 last-input ${isInvalid(
           errors.password
         )}`}
