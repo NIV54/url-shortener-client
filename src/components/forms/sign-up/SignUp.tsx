@@ -6,9 +6,9 @@ import { registerUser } from "../../../common/api/users";
 import { Register } from "../../../common/types/Register.type";
 import * as messages from "../../../common/user-messages";
 import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
-import { isInvalid } from "../common/utils/is-invalid";
 import * as routes from "../../common/routes";
 import { useHistory } from "react-router-dom";
+import { classes } from "../../utils/classes";
 
 export const SignUp = () => {
   const { register, handleSubmit, errors } = useForm<Register>({
@@ -36,7 +36,10 @@ export const SignUp = () => {
     >
       <input
         type="email"
-        className={`form-control fadeIn-3 ${isInvalid(errors.email)}`}
+        className={classes(
+          { "is-invalid": errors.email },
+          "form-control fadeIn-3"
+        )}
         name="email"
         placeholder="Email"
         required
@@ -46,7 +49,10 @@ export const SignUp = () => {
       />
       <input
         type="text"
-        className={`form-control fadeIn-4 ${isInvalid(errors.username)}`}
+        className={classes(
+          { "is-invalid": errors.username },
+          "form-control fadeIn-4"
+        )}
         name="username"
         placeholder="Username"
         autoFocus
@@ -55,9 +61,10 @@ export const SignUp = () => {
       />
       <input
         type="password"
-        className={`form-control fadeIn-5 last-input ${isInvalid(
-          errors.password
-        )}`}
+        className={classes(
+          { "is-invalid": errors.password },
+          "form-control fadeIn-5 last-input"
+        )}
         name="password"
         placeholder="Password"
         autoFocus
