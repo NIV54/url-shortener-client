@@ -8,9 +8,10 @@ import { Login as LoginFields } from "../../../common/types/Login.type";
 import * as messages from "../../../common/user-messages";
 import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
 import * as routes from "../../common/routes";
+import { classes } from "../../utils/classes";
 
 import "../common/styles/animations.scss";
-import { classes } from "../../utils/classes";
+import "./Login.scss";
 
 export const Login = () => {
   const { register, handleSubmit, errors } = useForm<LoginFields>({
@@ -51,9 +52,9 @@ export const Login = () => {
         ref={register({ required: true })}
       />
       <input
-        type="password"
+        type={rememberMe ? "password" : "text"}
         className={classes(
-          { "is-invalid": errors.password },
+          { "is-invalid": errors.password, textPassword: !rememberMe },
           "form-control last-input fadeIn-4"
         )}
         name="password"
