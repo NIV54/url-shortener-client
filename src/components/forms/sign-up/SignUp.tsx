@@ -7,17 +7,22 @@ import { Register } from "../../../common/types/Register.type";
 import * as messages from "../../../common/user-messages";
 import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
 import { isInvalid } from "../common/utils/is-invalid";
+import * as routes from "../../common/routes";
+import { useHistory } from "react-router-dom";
 
 export const SignUp = () => {
   const { register, handleSubmit, errors } = useForm<Register>({
     mode: "onSubmit"
   });
 
+  const history = useHistory();
+
   const onSubmit = async (values: Register) => {
     const response = await registerUser(values);
     const result = await response.json();
     if (response.ok) {
-      toast(messages.success);
+      history.push(routes.LOGIN);
+      toast(messages.registerSuccess);
     } else {
       toast.error(result.message);
     }

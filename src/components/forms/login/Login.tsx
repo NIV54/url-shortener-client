@@ -1,12 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 import { loginUser } from "../../../common/api/users";
 import { Login as LoginFields } from "../../../common/types/Login.type";
 import * as messages from "../../../common/user-messages";
 import { isInvalid } from "../common/utils/is-invalid";
 import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
+import * as routes from "../../common/routes";
 
 import "../common/styles/animations.scss";
 
@@ -15,11 +17,14 @@ export const Login = () => {
     mode: "onSubmit"
   });
 
+  const history = useHistory();
+
   const onSubmit = async (values: LoginFields) => {
     const response = await loginUser(values);
     const result = await response.json();
     if (response.ok) {
-      toast(messages.success);
+      toast(messages.welcome);
+      history.push(routes.HOME);
     } else {
       toast.error(result.message);
     }
