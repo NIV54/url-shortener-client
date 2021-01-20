@@ -38,10 +38,10 @@ export const Login = () => {
     >
       {/* TODO: make this email/username field */}
       <input
-        type="email"
-        className={`form-control fadeIn-3 ${isInvalid(errors.email)}`}
-        name="email"
-        placeholder="Email"
+        type="text"
+        className={`form-control fadeIn-3 ${isInvalid(errors.usernameOrEmail)}`}
+        name="usernameOrEmail"
+        placeholder="Username/Email"
         required
         autoFocus
         autoComplete={"off"}
