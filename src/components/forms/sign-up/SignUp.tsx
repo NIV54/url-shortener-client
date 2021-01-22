@@ -55,7 +55,6 @@ export const SignUp = () => {
         )}
         name="username"
         placeholder="Username"
-        autoFocus
         autoComplete={"off"}
         ref={register({ required: true })}
       />
@@ -67,7 +66,6 @@ export const SignUp = () => {
         )}
         name="password"
         placeholder="Password"
-        autoFocus
         autoComplete={"off"}
         ref={register({ required: true })}
       />
