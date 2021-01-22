@@ -1,7 +1,6 @@
+import cookies from "js-cookie";
 import React, { PropsWithChildren } from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
-
-import cookies from "js-cookie";
 
 export const ProtectedRoute = ({
   children,

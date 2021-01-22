@@ -1,28 +1,23 @@
+import "./ManageURLs.scss";
+
 import React, { useMemo } from "react";
-// @types/react-table is not so good,
-// that's why "any" and "!" is being used often in this file
-import {
-  useTable,
-  useFilters,
-  useGlobalFilter,
-  usePagination
-} from "react-table";
-import useSWR from "swr";
 import {
   ChevronDoubleLeft,
   ChevronDoubleRight,
   ChevronLeft,
   ChevronRight
 } from "react-bootstrap-icons";
+import { useDispatch } from "react-redux";
+// @types/react-table is not so good,
+// that's why "any" and "!" is being used often in this file
+import { useFilters, useGlobalFilter, usePagination, useTable } from "react-table";
+import useSWR from "swr";
 
 import { getAllUrls } from "../../common/api/urls";
+import { resetEditableCell } from "../../store/editable-cell/slice";
 
 import Filter from "./DefaultColumnFilter/DefaultColumnFilter";
-
-import "./ManageURLs.scss";
 import { EditableCell } from "./EditableCell/EditableCell";
-import { useDispatch } from "react-redux";
-import { resetEditableCell } from "../../store/editable-cell/slice";
 
 export const ManageURLs = () => {
   const dispatch = useDispatch();

@@ -1,17 +1,18 @@
+import "react-toastify/dist/ReactToastify.css";
+
 import React from "react";
+import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { Provider } from "react-redux";
 
-import { NewShortURL } from "../forms/new-short-url/NewShortURL";
-import { SignUp } from "../forms/sign-up/SignUp";
-import { Login } from "../forms/login/Login";
-import { ManageURLs } from "../manage-urls/ManageURLs";
 import { store } from "../../store";
 import * as routes from "../common/routes";
-import { ProtectedRoute } from "./ProtectedRoute/ProtectedRoute";
+import { Login } from "../forms/login/Login";
+import { NewShortURL } from "../forms/new-short-url/NewShortURL";
+import { SignUp } from "../forms/sign-up/SignUp";
+import { ManageURLs } from "../manage-urls/ManageURLs";
 
-import "react-toastify/dist/ReactToastify.css";
+import { ProtectedRoute } from "./ProtectedRoute/ProtectedRoute";
 
 function App() {
   return (

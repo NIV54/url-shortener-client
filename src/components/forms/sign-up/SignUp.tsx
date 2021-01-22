@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { registerUser } from "../../../common/api/users";
-import {
-  Register,
-  RegistrationForm
-} from "../../../common/types/Register.type";
+import { RegistrationForm } from "../../../common/types/Register.type";
 import * as messages from "../../../common/user-messages";
-import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
 import * as routes from "../../common/routes";
-import { useHistory } from "react-router-dom";
 import { classes } from "../../utils/classes";
+import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
 
 export const SignUp = () => {
   const { register, handleSubmit, errors } = useForm<RegistrationForm>({

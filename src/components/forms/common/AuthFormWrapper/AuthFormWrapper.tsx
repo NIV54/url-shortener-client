@@ -1,9 +1,9 @@
+import "../styles/animations.scss";
+import "../styles/auth-form.scss";
+
 import React, { PropsWithChildren } from "react";
 
 import Icon from "../../../../assets/icon.png";
-
-import "../styles/auth-form.scss";
-import "../styles/animations.scss";
 
 interface AuthFormWrapperProps {
   title: string;

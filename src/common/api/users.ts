@@ -1,5 +1,6 @@
 import { Login } from "../types/Login.type";
 import { Register } from "../types/Register.type";
+
 import { headers } from "./headers";
 
 const backend = process.env.REACT_APP_BACKEND_URL;

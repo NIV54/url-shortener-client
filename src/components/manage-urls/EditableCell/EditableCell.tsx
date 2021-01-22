@@ -1,17 +1,14 @@
+import "./EditableCell.scss";
+
 import React, { useEffect, useRef, useState } from "react";
-import { toast } from "react-toastify";
-import { CellProps } from "react-table";
 import { useDispatch, useSelector } from "react-redux";
+import { CellProps } from "react-table";
+import { toast } from "react-toastify";
 
 import { deleteUrl, editUrl } from "../../../common/api/urls";
 import * as messages from "../../../common/user-messages";
-import {
-  resetEditableCell,
-  setEditableCell
-} from "../../../store/editable-cell/slice";
 import { State } from "../../../store";
-
-import "./EditableCell.scss";
+import { resetEditableCell, setEditableCell } from "../../../store/editable-cell/slice";
 
 // TODO: refactor - value and previous value
 export const EditableCell = (props: CellProps<any, string>) => {

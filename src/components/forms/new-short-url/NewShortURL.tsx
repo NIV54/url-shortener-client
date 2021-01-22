@@ -1,9 +1,10 @@
+import "react-toastify/dist/ReactToastify.css";
+
+import { parse } from "qs";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import { parse } from "qs";
-import "react-toastify/dist/ReactToastify.css";
 
 import { addUrl } from "../../../common/api/urls";
 import { ShortURL } from "../../../common/types/ShortURL.type";

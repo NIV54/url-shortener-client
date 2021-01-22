@@ -1,12 +1,11 @@
+import "bootstrap/dist/js/bootstrap";
+import "./index.scss";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./components/app/App";
 import reportWebVitals from "./reportWebVitals";
-
-import "./index.scss";
-
-import "bootstrap/dist/js/bootstrap";
 
 ReactDOM.render(
   <React.StrictMode>
