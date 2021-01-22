@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { EyeFill, Eye } from "react-bootstrap-icons";
 
 import { loginUser } from "../../../common/api/users";
@@ -10,6 +10,8 @@ import * as messages from "../../../common/user-messages";
 import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
 import * as routes from "../../common/routes";
 import { classes } from "../../utils/classes";
+import { Maybe } from "../../utils/types/Maybe.type";
+import { LocationState } from "../../utils/types/LocationState.type";
 
 import "../common/styles/animations.scss";
 import "./Login.scss";
@@ -21,13 +23,14 @@ export const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   const history = useHistory();
+  const location = useLocation<Maybe<LocationState>>();
 
   const onSubmit = async (values: LoginFields) => {
     const response = await loginUser(values);
     const result = await response.json();
     if (response.ok) {
       toast(messages.welcome);
-      history.push(routes.HOME);
+      history.push(location.state?.from.pathname || routes.HOME);
     } else {
       toast.error(result.message);
     }
