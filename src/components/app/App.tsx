@@ -9,6 +9,7 @@ import { Login } from "../forms/login/Login";
 import { ManageURLs } from "../manage-urls/ManageURLs";
 import { store } from "../../store";
 import * as routes from "../common/routes";
+import { ProtectedRoute } from "./ProtectedRoute/ProtectedRoute";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -23,11 +24,11 @@ function App() {
           <Route exact path={routes.LOGIN}>
             <Login />
           </Route>
-          <Route exact path={routes.HOME}>
+          <ProtectedRoute exact path={routes.HOME}>
             <NewShortURL />
             <br />
             <ManageURLs />
-          </Route>
+          </ProtectedRoute>
         </Switch>
         <ToastContainer
           position="bottom-right"
