@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import { EyeFill, Eye } from "react-bootstrap-icons";
 
 import { loginUser } from "../../../common/api/users";
 import { Login as LoginFields } from "../../../common/types/Login.type";
@@ -17,7 +18,7 @@ export const Login = () => {
   const { register, handleSubmit, errors } = useForm<LoginFields>({
     mode: "onSubmit"
   });
-  const [rememberMe, setRememberMe] = useState<boolean>(false);
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   const history = useHistory();
 
@@ -52,9 +53,11 @@ export const Login = () => {
         ref={register({ required: true })}
       />
       <input
-        type={rememberMe ? "password" : "text"}
+        type={passwordVisible ? "text" : "password"}
         className={classes(
-          { "is-invalid": errors.password, textPassword: !rememberMe },
+          {
+            "is-invalid": errors.password
+          },
           "form-control last-input fadeIn-4"
         )}
         name="password"
@@ -63,16 +66,12 @@ export const Login = () => {
         autoComplete={"off"}
         ref={register({ required: true })}
       />
-      <input
-        type="checkbox"
-        className="mb-4 mr-1 fadeIn-5"
-        name="remember"
-        checked={rememberMe}
-        onChange={() => setRememberMe(rememberMe => !rememberMe)}
-      />
-      <label htmlFor="remember" className="fadeIn-5">
-        Remember me
-      </label>
+      <span
+        className="field-icon fadeIn-4"
+        onClick={() => setPasswordVisible(passwordVisible => !passwordVisible)}
+      >
+        {passwordVisible ? <Eye /> : <EyeFill />}
+      </span>
     </AuthFormWrapper>
   );
 };
