@@ -9,6 +9,7 @@ const backendUrl = backend + endpoint;
 export const addUrl = ({ url, alias }: ShortURL) =>
   fetch(backendUrl, {
     method: "POST",
+    credentials: "include",
     headers,
     body: JSON.stringify({
       url,
@@ -16,11 +17,12 @@ export const addUrl = ({ url, alias }: ShortURL) =>
     })
   });
 
-export const getAllUrls = () => fetch(backendUrl, { headers });
+export const getAllUrls = () => fetch(backendUrl, { credentials: "include", headers });
 
 export const editUrl = ({ url, alias }: ShortURL) =>
   fetch(backendUrl, {
     method: "PATCH",
+    credentials: "include",
     headers,
     body: JSON.stringify({
       url,
@@ -31,5 +33,6 @@ export const editUrl = ({ url, alias }: ShortURL) =>
 export const deleteUrl = (id: number) =>
   fetch(backendUrl + `/${id}`, {
     method: "DELETE",
+    credentials: "include",
     headers
   });
