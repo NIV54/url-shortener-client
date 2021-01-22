@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { registerUser } from "../../../common/api/users";
-import { Register } from "../../../common/types/Register.type";
+import {
+  Register,
+  RegistrationForm
+} from "../../../common/types/Register.type";
 import * as messages from "../../../common/user-messages";
 import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
 import * as routes from "../../common/routes";
@@ -11,13 +14,21 @@ import { useHistory } from "react-router-dom";
 import { classes } from "../../utils/classes";
 
 export const SignUp = () => {
-  const { register, handleSubmit, errors } = useForm<Register>({
-    mode: "onSubmit"
+  const { register, handleSubmit, errors } = useForm<RegistrationForm>({
+    mode: "onChange"
   });
+  const [passwordMatch, setPasswordMatch] = useState(true);
 
   const history = useHistory();
 
-  const onSubmit = async (values: Register) => {
+  const onSubmit = async ({ repeatPassword, ...values }: RegistrationForm) => {
+    if (values.password !== repeatPassword) {
+      setPasswordMatch(false);
+      toast.error(messages.differentPasswords);
+      return;
+    } else {
+      setPasswordMatch(true);
+    }
     const response = await registerUser(values);
     const result = await response.json();
     if (response.ok) {
@@ -62,10 +73,21 @@ export const SignUp = () => {
         type="password"
         className={classes(
           { "is-invalid": errors.password },
-          "form-control fadeIn-5 last-input"
+          "form-control fadeIn-5"
         )}
         name="password"
         placeholder="Password"
+        autoComplete={"off"}
+        ref={register({ required: true })}
+      />
+      <input
+        type="password"
+        className={classes(
+          { "is-invalid": !passwordMatch },
+          "form-control fadeIn-6 last-input"
+        )}
+        name="repeatPassword"
+        placeholder="Repeat Password"
         autoComplete={"off"}
         ref={register({ required: true })}
       />

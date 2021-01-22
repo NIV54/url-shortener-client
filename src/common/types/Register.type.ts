@@ -3,3 +3,7 @@ export interface Register {
   username: string;
   password: string;
 }
+
+export interface RegistrationForm extends Register {
+  repeatPassword: string;
+}
