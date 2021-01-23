@@ -2,10 +2,9 @@ import cookies from "js-cookie";
 import React, { PropsWithChildren } from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
 
-export const ProtectedRoute = ({
-  children,
-  ...rest
-}: PropsWithChildren<RouteProps>) => (
+import * as routes from "../../../common/routes";
+
+export const ProtectedRoute = ({ children, ...rest }: PropsWithChildren<RouteProps>) => (
   <Route
     {...rest}
     render={({ location }) => {
@@ -14,7 +13,7 @@ export const ProtectedRoute = ({
       ) : (
         <Redirect
           to={{
-            pathname: "/login",
+            pathname: routes.LOGIN,
             state: { from: location }
           }}
         />

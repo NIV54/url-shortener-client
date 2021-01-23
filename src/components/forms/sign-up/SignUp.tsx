@@ -4,9 +4,9 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { registerUser } from "../../../common/api/users";
+import * as routes from "../../../common/routes";
 import { RegistrationForm } from "../../../common/types/Register.type";
 import * as messages from "../../../common/user-messages";
-import * as routes from "../../common/routes";
 import { classes } from "../../utils/classes";
 import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
 
@@ -37,17 +37,10 @@ export const SignUp = () => {
   };
 
   return (
-    <AuthFormWrapper
-      title="Sign up"
-      SubmitButtonText="Sign up"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <AuthFormWrapper title="Sign up" SubmitButtonText="Sign up" onSubmit={handleSubmit(onSubmit)}>
       <input
         type="email"
-        className={classes(
-          { "is-invalid": errors.email },
-          "form-control fadeIn-3"
-        )}
+        className={classes({ "is-invalid": errors.email }, "form-control fadeIn-3")}
         name="email"
         placeholder="Email"
         required
@@ -57,10 +50,7 @@ export const SignUp = () => {
       />
       <input
         type="text"
-        className={classes(
-          { "is-invalid": errors.username },
-          "form-control fadeIn-4"
-        )}
+        className={classes({ "is-invalid": errors.username }, "form-control fadeIn-4")}
         name="username"
         placeholder="Username"
         autoComplete={"off"}
@@ -68,10 +58,7 @@ export const SignUp = () => {
       />
       <input
         type="password"
-        className={classes(
-          { "is-invalid": errors.password },
-          "form-control fadeIn-5"
-        )}
+        className={classes({ "is-invalid": errors.password }, "form-control fadeIn-5")}
         name="password"
         placeholder="Password"
         autoComplete={"off"}
@@ -79,10 +66,7 @@ export const SignUp = () => {
       />
       <input
         type="password"
-        className={classes(
-          { "is-invalid": !passwordMatch },
-          "form-control fadeIn-6 last-input"
-        )}
+        className={classes({ "is-invalid": !passwordMatch }, "form-control fadeIn-6 last-input")}
         name="repeatPassword"
         placeholder="Repeat Password"
         autoComplete={"off"}

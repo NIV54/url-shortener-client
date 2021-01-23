@@ -8,9 +8,9 @@ import { useHistory, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { loginUser } from "../../../common/api/users";
+import * as routes from "../../../common/routes";
 import { Login as LoginFields } from "../../../common/types/Login.type";
 import * as messages from "../../../common/user-messages";
-import * as routes from "../../common/routes";
 import { classes } from "../../utils/classes";
 import { LocationState } from "../../utils/types/LocationState.type";
 import { Maybe } from "../../utils/types/Maybe.type";
@@ -44,10 +44,7 @@ export const Login = () => {
     >
       <input
         type="text"
-        className={classes(
-          { "is-invalid": errors.usernameOrEmail },
-          "form-control fadeIn-3"
-        )}
+        className={classes({ "is-invalid": errors.usernameOrEmail }, "form-control fadeIn-3")}
         name="usernameOrEmail"
         placeholder="Username/Email"
         required

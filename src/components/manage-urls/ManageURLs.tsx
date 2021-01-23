@@ -22,11 +22,9 @@ import { EditableCell } from "./EditableCell/EditableCell";
 export const ManageURLs = () => {
   const dispatch = useDispatch();
 
-  const { data, error } = useSWR(
-    "getAllUrls",
-    () => getAllUrls().then(res => res.json()),
-    { refreshInterval: 1000 }
-  );
+  const { data, error } = useSWR("getAllUrls", () => getAllUrls().then(res => res.json()), {
+    refreshInterval: 1000
+  });
 
   const columns = useMemo(
     () => [
@@ -74,10 +72,7 @@ export const ManageURLs = () => {
     usePagination
   );
   return (
-    <div
-      className="container"
-      onDoubleClick={() => dispatch(resetEditableCell())}
-    >
+    <div className="container" onDoubleClick={() => dispatch(resetEditableCell())}>
       {error ? (
         <div className="alert alert-danger" role="alert">
           Failed to load
@@ -106,10 +101,7 @@ export const ManageURLs = () => {
                   <ChevronLeft />
                 </span>
               </li>
-              <li
-                className={`page-item ${!canNextPage && " disabled"}`}
-                onClick={() => nextPage()}
-              >
+              <li className={`page-item ${!canNextPage && " disabled"}`} onClick={() => nextPage()}>
                 <span className="page-link">
                   <ChevronRight />
                 </span>
@@ -135,9 +127,7 @@ export const ManageURLs = () => {
                   className="form-control"
                   value={pageIndex + 1}
                   onChange={e => {
-                    const page = e.target.value
-                      ? Number(e.target.value) - 1
-                      : 0;
+                    const page = e.target.value ? Number(e.target.value) - 1 : 0;
                     gotoPage(page);
                   }}
                 />

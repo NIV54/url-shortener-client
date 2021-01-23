@@ -5,8 +5,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import * as routes from "../../common/routes";
 import { store } from "../../store";
-import * as routes from "../common/routes";
 import { Login } from "../forms/login/Login";
 import { NewShortURL } from "../forms/new-short-url/NewShortURL";
 import { SignUp } from "../forms/sign-up/SignUp";
@@ -31,11 +31,7 @@ function App() {
             <ManageURLs />
           </ProtectedRoute>
         </Switch>
-        <ToastContainer
-          position="bottom-right"
-          autoClose={3000}
-          pauseOnFocusLoss={false}
-        />
+        <ToastContainer position="bottom-right" autoClose={3000} pauseOnFocusLoss={false} />
       </BrowserRouter>
     </Provider>
   );
