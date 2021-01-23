@@ -18,6 +18,7 @@ export const loginUser = (loginData: Login) =>
   fetch(backendUrl + "/login", {
     method: "POST",
     credentials: "include",
+    mode: "cors",
     headers,
     body: JSON.stringify(loginData)
   });
