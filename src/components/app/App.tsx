@@ -12,7 +12,7 @@ import { NewShortURL } from "../forms/new-short-url/NewShortURL";
 import { SignUp } from "../forms/sign-up/SignUp";
 import { ManageURLs } from "../manage-urls/ManageURLs";
 
-import { ProtectedRoute } from "./ProtectedRoute/ProtectedRoute";
+
 
 function App() {
   return (
@@ -25,11 +25,11 @@ function App() {
           <Route exact path={routes.LOGIN}>
             <Login />
           </Route>
-          <ProtectedRoute exact path={routes.HOME}>
+          <Route exact path={routes.HOME}>
             <NewShortURL />
             <br />
             <ManageURLs />
-          </ProtectedRoute>
+          </Route>
         </Switch>
         <ToastContainer position="bottom-right" autoClose={3000} pauseOnFocusLoss={false} />
       </BrowserRouter>

@@ -7,8 +7,8 @@ import * as routes from "../../../common/routes";
 export const ProtectedRoute = ({ children, ...rest }: PropsWithChildren<RouteProps>) => (
   <Route
     {...rest}
-    render={({ location }) => {
-      return cookies.get("refreshToken") ? (
+    render={({ location }) =>
+      cookies.get("refreshToken") ? (
         children
       ) : (
         <Redirect
@@ -17,7 +17,7 @@ export const ProtectedRoute = ({ children, ...rest }: PropsWithChildren<RoutePro
             state: { from: location }
           }}
         />
-      );
-    }}
+      )
+    }
   />
 );
