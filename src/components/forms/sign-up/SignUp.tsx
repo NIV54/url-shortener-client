@@ -37,7 +37,12 @@ export const SignUp = () => {
   };
 
   return (
-    <AuthFormWrapper title="Sign up" SubmitButtonText="Sign up" onSubmit={handleSubmit(onSubmit)}>
+    <AuthFormWrapper
+      title="Sign up"
+      SubmitButtonText="Sign up"
+      onSubmit={handleSubmit(onSubmit)}
+      lastFade={6}
+    >
       <input
         type="email"
         className={classes({ "is-invalid": errors.email }, "form-control fadeIn-3")}

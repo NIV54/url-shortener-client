@@ -7,6 +7,7 @@ import Icon from "../../../../assets/icon.png";
 
 interface AuthFormWrapperProps {
   title: string;
+  lastFade: number;
   SubmitButtonText?: string;
   onSubmit: (event?: React.BaseSyntheticEvent) => Promise<void>;
 }
@@ -14,6 +15,7 @@ interface AuthFormWrapperProps {
 export const AuthFormWrapper = ({
   children,
   title,
+  lastFade,
   SubmitButtonText = "Submit",
   onSubmit
 }: PropsWithChildren<AuthFormWrapperProps>) => (
@@ -30,12 +32,10 @@ export const AuthFormWrapper = ({
       <div className="card-body">{children}</div>
       <input
         type="submit"
-        className="btn btn-primary btn-lg btn-block fadeIn-6"
+        className={`btn btn-primary btn-lg btn-block fadeIn-${lastFade + 1}`}
         value={SubmitButtonText}
       />
-      <p className="mt-5 mb-3 text-muted fadeIn-7">
-        © {new Date().getFullYear()}
-      </p>
+      <p className={`mt-5 mb-3 text-muted fadeIn-${lastFade + 2}`}>© {new Date().getFullYear()}</p>
     </form>
   </div>
 );

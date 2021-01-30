@@ -41,6 +41,7 @@ export const Login = () => {
       title="Please sign in"
       SubmitButtonText="Sign in"
       onSubmit={handleSubmit(onSubmit)}
+      lastFade={4}
     >
       <input
         type="text"
