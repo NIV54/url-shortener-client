@@ -11,8 +11,7 @@ import { Login } from "../forms/login/Login";
 import { NewShortURL } from "../forms/new-short-url/NewShortURL";
 import { SignUp } from "../forms/sign-up/SignUp";
 import { ManageURLs } from "../manage-urls/ManageURLs";
-
-
+import { Navbar } from "../navbar/Navbar";
 
 function App() {
   return (
@@ -26,6 +25,7 @@ function App() {
             <Login />
           </Route>
           <Route exact path={routes.HOME}>
+            <Navbar />
             <NewShortURL />
             <br />
             <ManageURLs />
