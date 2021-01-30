@@ -15,6 +15,7 @@ import { classes } from "../../utils/classes";
 import { LocationState } from "../../utils/types/LocationState.type";
 import { Maybe } from "../../utils/types/Maybe.type";
 import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
+import { Redirect } from "../common/Redirect/Redirect";
 
 export const Login = () => {
   const { register, handleSubmit, errors } = useForm<LoginFields>({
@@ -42,6 +43,11 @@ export const Login = () => {
       SubmitButtonText="Sign in"
       onSubmit={handleSubmit(onSubmit)}
       lastFade={4}
+      redirect={
+        <Redirect to={routes.SIGN_UP} displayText="Sign up">
+          <span>Don't have an account?</span>
+        </Redirect>
+      }
     >
       <input
         type="text"

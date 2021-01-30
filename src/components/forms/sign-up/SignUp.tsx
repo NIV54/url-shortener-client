@@ -9,6 +9,7 @@ import { RegistrationForm } from "../../../common/types/Register.type";
 import * as messages from "../../../common/user-messages";
 import { classes } from "../../utils/classes";
 import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
+import { Redirect } from "../common/Redirect/Redirect";
 
 export const SignUp = () => {
   const { register, handleSubmit, errors } = useForm<RegistrationForm>({
@@ -42,6 +43,11 @@ export const SignUp = () => {
       SubmitButtonText="Sign up"
       onSubmit={handleSubmit(onSubmit)}
       lastFade={6}
+      redirect={
+        <Redirect to={routes.LOGIN} displayText="Login">
+          <span>Already have an account?</span>
+        </Redirect>
+      }
     >
       <input
         type="email"

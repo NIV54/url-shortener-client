@@ -10,6 +10,7 @@ interface AuthFormWrapperProps {
   lastFade: number;
   SubmitButtonText?: string;
   onSubmit: (event?: React.BaseSyntheticEvent) => Promise<void>;
+  redirect?: JSX.Element;
 }
 
 export const AuthFormWrapper = ({
@@ -17,7 +18,8 @@ export const AuthFormWrapper = ({
   title,
   lastFade,
   SubmitButtonText = "Submit",
-  onSubmit
+  onSubmit,
+  redirect
 }: PropsWithChildren<AuthFormWrapperProps>) => (
   <div className="h-100 content-center text-center">
     <form className="auth-form fadeInDown" onSubmit={onSubmit}>
@@ -35,7 +37,8 @@ export const AuthFormWrapper = ({
         className={`btn btn-primary btn-lg btn-block fadeIn-${lastFade + 1}`}
         value={SubmitButtonText}
       />
-      <p className={`mt-5 mb-3 text-muted fadeIn-${lastFade + 2}`}>© {new Date().getFullYear()}</p>
+      <div className={`mt-2 fadeIn-${lastFade + 2}`}>{redirect}</div>
+      <p className={`mt-5 mb-3 text-muted fadeIn-${lastFade + 3}`}>© {new Date().getFullYear()}</p>
     </form>
   </div>
 );
