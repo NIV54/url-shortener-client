@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 
+import { logoutUser } from "../../common/api/users";
 import * as routes from "../../common/routes";
+import * as messages from "../../common/user-messages";
 
 type NavItem = typeof routes[keyof typeof routes];
 
@@ -14,6 +17,19 @@ export const Navbar = () => {
   }, [location.pathname]);
 
   const isActive = (navItem: NavItem) => navItem === activeNavItem;
+
+  const history = useHistory();
+
+  const onLogout = async () => {
+    const response = await logoutUser();
+    if (response.ok) {
+      toast(messages.logout);
+      history.push(routes.LOGIN);
+    } else {
+      const result = await response.json();
+      toast.error(result.message);
+    }
+  };
 
   return (
     <nav className="navbar navbar-expand navbar-light bg-light">
@@ -31,7 +47,7 @@ export const Navbar = () => {
           </li>
         </ul>
         <span className="navbar-text p-0">
-          <Link className="nav-link" to={""}>
+          <Link className="nav-link" to={""} onClick={onLogout}>
             Logout
           </Link>
         </span>

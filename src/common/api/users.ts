@@ -22,3 +22,11 @@ export const loginUser = (loginData: Login) =>
     headers,
     body: JSON.stringify(loginData)
   });
+
+export const logoutUser = () =>
+  fetch(backendUrl + "/logout", {
+    method: "POST",
+    credentials: "include",
+    mode: "cors",
+    headers
+  });
