@@ -13,18 +13,23 @@ import { SignUp } from "../forms/sign-up/SignUp";
 import { ManageURLs } from "../manage-urls/ManageURLs";
 import { Navbar } from "../navbar/Navbar";
 
+import { SEO } from "./SEO/SEO";
+
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
           <Route exact path={routes.SIGN_UP}>
+            <SEO title="Sign up" pathSlug={routes.SIGN_UP} keywords={["sign up"]} />
             <SignUp />
           </Route>
           <Route exact path={routes.LOGIN}>
+            <SEO title="Login" pathSlug={routes.LOGIN} keywords={["login"]} />
             <Login />
           </Route>
           <Route exact path={routes.HOME}>
+            <SEO title="Home" pathSlug={routes.HOME} />
             <Navbar />
             <NewShortURL />
             <br />
