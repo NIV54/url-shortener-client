@@ -61,10 +61,6 @@ export const SEO = ({ title: pageTitle, pathSlug, description, keywords = [] }: 
         {
           name: "keywords",
           content: siteKeywords.concat(keywords).join()
-        },
-        {
-          name: "google-site-verification",
-          content: "VOikJ8xB6WuiJewELdwHwfJIs-xM-0RufSUkBVqOWy0"
         }
       ]}
       link={[
