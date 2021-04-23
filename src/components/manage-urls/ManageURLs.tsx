@@ -83,8 +83,8 @@ export const ManageURLs = () => {
         </div>
       ) : (
         <>
-          <div className="d-flex justify-content-around">
-            <ul className="pagination">
+          <div className="row justify-content-center">
+            <ul className="pagination col-4 col-sm-4">
               <li
                 className={`page-item ${!canPreviousPage && " disabled"}`}
                 onClick={() => gotoPage(0)}
@@ -115,12 +115,14 @@ export const ManageURLs = () => {
                 </span>
               </li>
             </ul>
-            <h3>
-              Page {pageIndex + 1} of {pageOptions.length}
+            <h3 className="col-4 col-sm-auto mr-lg-5">
+              Page {pageOptions.length === 0 ? 0 : pageIndex + 1} of {pageOptions.length}
             </h3>
-            <div className="form-inline">
-              <div className="form-group">
+            <div className="form-row">
+              <div className="col">
                 <label htmlFor="goToPage">Go to page</label>
+              </div>
+              <div className="col-5">
                 <input
                   type="number"
                   name="goToPage"
@@ -132,7 +134,7 @@ export const ManageURLs = () => {
                   }}
                 />
               </div>
-              <div className="form-group">
+              <div className="col-5">
                 <select
                   className="form-control"
                   value={pageSize}
