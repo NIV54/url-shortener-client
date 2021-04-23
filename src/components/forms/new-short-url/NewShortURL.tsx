@@ -39,7 +39,7 @@ export const NewShortURL = () => {
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-group">
-        <label htmlFor="url">Url</label>
+        <label htmlFor="url">URL</label>
         <input
           className={classes({ "is-invalid": errors.url }, "form-control")}
           type="text"
@@ -49,12 +49,7 @@ export const NewShortURL = () => {
       </div>
       <div className="form-group">
         <label htmlFor="alias">Alias</label>
-        <input
-          className="form-control"
-          type="text"
-          name="alias"
-          ref={register()}
-        />
+        <input className="form-control" type="text" name="alias" ref={register()} />
       </div>
       <input type="submit" className="btn btn-primary" />
       {alias && (
