@@ -119,10 +119,10 @@ export const ManageURLs = () => {
               Page {pageOptions.length === 0 ? 0 : pageIndex + 1} of {pageOptions.length}
             </h3>
             <div className="form-row d-sm-none d-md-flex">
-              <div className="col">
+              <div>
                 <label htmlFor="goToPage">Go to page</label>
               </div>
-              <div className="col-5">
+              <div>
                 <input
                   type="number"
                   name="goToPage"
@@ -134,7 +134,7 @@ export const ManageURLs = () => {
                   }}
                 />
               </div>
-              <div className="col-5">
+              <div>
                 <select
                   className="form-control"
                   value={pageSize}
