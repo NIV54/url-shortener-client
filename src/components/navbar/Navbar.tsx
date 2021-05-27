@@ -44,7 +44,24 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand navbar-light bg-light">
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul className="navbar-nav mr-auto">
+        <div>
+          <span className="navbar-text p-0">
+            <Link className="nav-link" to={""} onClick={onLogout}>
+              Logout
+            </Link>
+          </span>
+          {user && (
+            <>
+              <span className="navbar-text p-0">|</span>
+              <span className="navbar-text p-0">
+                <Link className="nav-link" to={""} onClick={onLogout}>
+                  Hey face, {user.username}
+                </Link>
+              </span>
+            </>
+          )}
+        </div>
+        <ul className="navbar-nav ml-auto">
           <li className={"nav-item"}>
             <Link className={`nav-link ${isActive(routes.HOME) ? "active" : ""}`} to={routes.HOME}>
               Home
@@ -55,13 +72,7 @@ export const Navbar = () => {
               Switch User
             </Link>
           </li>
-          {user && <li>{user.username}</li>}
         </ul>
-        <span className="navbar-text p-0">
-          <Link className="nav-link" to={""} onClick={onLogout}>
-            Logout
-          </Link>
-        </span>
       </div>
     </nav>
   );
