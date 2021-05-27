@@ -30,3 +30,11 @@ export const logoutUser = () =>
     mode: "cors",
     headers
   });
+
+export const getUser = () =>
+  fetch(backendUrl + "/", {
+    method: "POST",
+    credentials: "include",
+    mode: "cors",
+    headers
+  });

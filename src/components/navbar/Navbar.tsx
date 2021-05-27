@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { logoutUser } from "../../common/api/users";
 import * as routes from "../../common/routes";
 import * as messages from "../../common/user-messages";
+import { State } from "../../store";
+import { getLoggedInUser } from "../../store/user/slice";
 
 type NavItem = typeof routes[keyof typeof routes];
 
 export const Navbar = () => {
   const location = useLocation();
 
+  const dispatch = useDispatch();
+  const user = useSelector((state: State) => state.user);
+
   const [activeNavItem, setActiveNavItem] = useState<NavItem>("/");
   useEffect(() => {
     setActiveNavItem(location.pathname as NavItem);
   }, [location.pathname]);
+
+  useEffect(() => {
+    dispatch(getLoggedInUser());
+  }, []);
 
   const isActive = (navItem: NavItem) => navItem === activeNavItem;
 
@@ -45,6 +55,7 @@ export const Navbar = () => {
               Switch User
             </Link>
           </li>
+          {user && <li>{user.username}</li>}
         </ul>
         <span className="navbar-text p-0">
           <Link className="nav-link" to={""} onClick={onLogout}>
