@@ -55,7 +55,7 @@ export const Navbar = () => {
               <span className="navbar-text p-0">|</span>
               <span className="navbar-text p-0">
                 <Link className="nav-link" to={""} onClick={onLogout}>
-                  Hey face, {user.username}
+                  Hey 👋, {user.username}
                 </Link>
               </span>
             </>
