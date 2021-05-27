@@ -119,8 +119,10 @@ export const ManageURLs = () => {
               Page {pageOptions.length === 0 ? 0 : pageIndex + 1} of {pageOptions.length}
             </h3>
             <div className="form-row d-none d-md-flex">
-              <div>
-                <label htmlFor="goToPage">Go to page</label>
+              <div id="page-label" className="mr-2 text-center">
+                <label className="mb-0" htmlFor="goToPage">
+                  Go to page
+                </label>
               </div>
               <div>
                 <input
