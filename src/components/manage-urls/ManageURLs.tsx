@@ -118,7 +118,7 @@ export const ManageURLs = () => {
             <h3 className="col-auto mr-lg-5">
               Page {pageOptions.length === 0 ? 0 : pageIndex + 1} of {pageOptions.length}
             </h3>
-            <div className="form-row d-sm-none d-md-flex">
+            <div className="form-row d-none d-md-flex">
               <div>
                 <label htmlFor="goToPage">Go to page</label>
               </div>
