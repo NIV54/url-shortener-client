@@ -84,7 +84,7 @@ export const ManageURLs = () => {
       ) : (
         <>
           <div className="row justify-content-center">
-            <ul className="pagination col-4 col-sm-4">
+            <ul className="pagination col-4">
               <li
                 className={`page-item ${!canPreviousPage && " disabled"}`}
                 onClick={() => gotoPage(0)}
@@ -115,7 +115,7 @@ export const ManageURLs = () => {
                 </span>
               </li>
             </ul>
-            <h3 className="col-4 col-sm-auto mr-lg-5">
+            <h3 className="col-auto mr-lg-5">
               Page {pageOptions.length === 0 ? 0 : pageIndex + 1} of {pageOptions.length}
             </h3>
             <div className="form-row d-sm-none d-md-flex">
