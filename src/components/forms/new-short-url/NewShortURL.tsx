@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { addUrl } from "../../../common/api/urls";
-import { ShortURL } from "../../../common/types/ShortURL.type";
+import { ShortURLInput } from "../../../common/types/ShortURL.type";
 import * as messages from "../../../common/user-messages";
 import { classes } from "../../utils/classes";
 
@@ -15,7 +15,7 @@ export const NewShortURL = () => {
   const { search } = useLocation();
   const { alias: aliasFromURL }: { alias?: string } = parse(search.slice(1));
 
-  const { register, handleSubmit, errors } = useForm<ShortURL>({
+  const { register, handleSubmit, errors } = useForm<ShortURLInput>({
     mode: "onSubmit",
     defaultValues: {
       alias: aliasFromURL || ""
@@ -24,7 +24,7 @@ export const NewShortURL = () => {
 
   const [alias, setAlias] = useState("");
 
-  const onSubmit = async (values: ShortURL) => {
+  const onSubmit = async (values: ShortURLInput) => {
     const response = await addUrl(values);
     const result = await response.json();
     if (response.ok) {

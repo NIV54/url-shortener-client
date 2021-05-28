@@ -1,4 +1,4 @@
-import { ShortURL } from "../types/ShortURL.type";
+import { ShortURLInput } from "../types/ShortURL.type";
 
 import { authRedirect } from "./auth-redirect";
 import { headers } from "./headers";
@@ -7,7 +7,7 @@ const backend = process.env.REACT_APP_BACKEND_URL;
 const endpoint = "api/url";
 const backendUrl = backend + endpoint;
 
-export const addUrl = ({ url, alias }: ShortURL) =>
+export const addUrl = ({ url, alias }: ShortURLInput) =>
   fetch(backendUrl, {
     method: "POST",
     credentials: "include",
@@ -22,7 +22,7 @@ export const getAllUrls = authRedirect(() =>
   fetch(backendUrl, { credentials: "include", headers })
 );
 
-export const editUrl = authRedirect(({ url, alias }: ShortURL) =>
+export const editUrl = authRedirect(({ url, alias }: ShortURLInput) =>
   fetch(backendUrl, {
     method: "PATCH",
     credentials: "include",
