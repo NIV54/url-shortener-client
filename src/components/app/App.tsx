@@ -30,10 +30,13 @@ function App() {
           </Route>
           <Route exact path={routes.HOME}>
             <SEO title="Home" pathSlug={routes.HOME} />
-            <Navbar />
-            <NewShortURL />
-            <br />
-            <ManageURLs />
+            <main>
+              <Navbar />
+              <br />
+              <NewShortURL />
+              <br />
+              <ManageURLs />
+            </main>
           </Route>
         </Switch>
         <ToastContainer position="bottom-right" autoClose={3000} pauseOnFocusLoss={false} />
