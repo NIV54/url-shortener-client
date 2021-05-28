@@ -83,7 +83,7 @@ export const ManageURLs = () => {
         </div>
       ) : (
         <>
-          <div className="row justify-content-center">
+          <div className="row justify-content-around justify-content-md-center">
             <ul className="pagination col-4">
               <li
                 className={`page-item ${!canPreviousPage && " disabled"}`}
