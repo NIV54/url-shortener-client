@@ -19,12 +19,12 @@ import { resetEditableCell } from "../../store/editable-cell/slice";
 import Filter from "./DefaultColumnFilter/DefaultColumnFilter";
 import { EditableCell } from "./EditableCell/EditableCell";
 
-const ownedUrlsFetcher = () => getAllUrls().then(res => res.json());
+const ownedUrlsQueryFn = () => getAllUrls().then(res => res.json());
 
 export const ManageURLs = () => {
   const dispatch = useDispatch();
 
-  const { data, isError } = useQuery(queryKeys.OWNED_SHORT_URLS, ownedUrlsFetcher, { retry: 2 });
+  const { data, isError } = useQuery(queryKeys.OWNED_SHORT_URLS, ownedUrlsQueryFn, { retry: 2 });
 
   const columns = useMemo(
     () => [
