@@ -1,26 +1,42 @@
 import "./EditableCell.scss";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { CellProps } from "react-table";
 import { toast } from "react-toastify";
 
-import { deleteUrl, editUrl } from "../../../common/api/urls";
+import { deleteUrl, editUrl, queryKeys } from "../../../common/api/urls";
+import { jsonify } from "../../../common/api/utils/jsonify";
+import { ShortURLInput } from "../../../common/types/ShortURL.type";
 import * as messages from "../../../common/user-messages";
 import { State } from "../../../store";
 import { resetEditableCell, setEditableCell } from "../../../store/editable-cell/slice";
+
+const editUrlMutationFn = jsonify<ShortURLInput>(editUrl);
 
 // TODO: refactor - value and previous value
 export const EditableCell = (props: CellProps<any, string>) => {
   const dispatch = useDispatch();
   const cellId = useRef(props.cell.getCellProps().key).current as string;
-  const isEditable = useSelector(
-    (state: State) => state.editableCell === cellId
-  );
+  const isEditable = useSelector((state: State) => state.editableCell === cellId);
   // storing previous value to rollback to it if the request to change
   // the value is wrong and a server error is thrown
   const [previousValue, setPreviousValue] = useState(props.value);
   const [value, setValue] = useState(previousValue);
+
+  const queryClient = useQueryClient();
+  const editUrlMutation = useMutation<ShortURLInput, Error, ShortURLInput>(editUrlMutationFn, {
+    onSuccess: result => {
+      setPreviousValue(result.url);
+      queryClient.invalidateQueries(queryKeys.OWNED_SHORT_URLS);
+      toast(messages.success);
+    },
+    onError: result => {
+      setValue(previousValue); // error rollback
+      toast.error(result.message);
+    }
+  });
 
   const { alias, id } = props.row.original;
 
@@ -40,23 +56,16 @@ export const EditableCell = (props: CellProps<any, string>) => {
 
   const updateUrl = async () => {
     if (value !== previousValue) {
-      const response = await editUrl({
+      editUrlMutation.mutate({
         url: value,
         alias
       });
-      const result = await response.json();
-      if (response.ok) {
-        setPreviousValue(result.url);
-        toast(messages.success);
-      } else {
-        setValue(previousValue); // error rollback
-        toast.error(result.message);
-      }
     }
     dispatch(resetEditableCell());
   };
 
   const removeUrl = async () => {
+    // TODO: use mutation instead of this
     const response = await deleteUrl(id);
     if (response.ok) {
       toast(messages.success);
@@ -84,10 +93,7 @@ export const EditableCell = (props: CellProps<any, string>) => {
           <button className="btn btn-success" onClick={updateUrl}>
             Confirm
           </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => dispatch(resetEditableCell())}
-          >
+          <button className="btn btn-danger" onClick={() => dispatch(resetEditableCell())}>
             Cancel
           </button>
         </div>
@@ -96,10 +102,7 @@ export const EditableCell = (props: CellProps<any, string>) => {
           <div className="take-space text-wrapper">
             <span>{previousValue}</span>
           </div>
-          <button
-            className="btn btn-info"
-            onClick={() => dispatch(setEditableCell(cellId))}
-          >
+          <button className="btn btn-info" onClick={() => dispatch(setEditableCell(cellId))}>
             Edit
           </button>
           <button className="btn btn-danger" onClick={removeUrl}>
