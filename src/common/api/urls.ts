@@ -11,7 +11,7 @@ export const queryKeys = {
   OWNED_SHORT_URLS: "OWNED_SHORT_URLS"
 };
 
-export const addUrl = ({ url, alias }: ShortURLInput) =>
+export const addUrl = authRedirect(({ url, alias }: ShortURLInput) =>
   fetch(backendUrl, {
     method: "POST",
     credentials: "include",
@@ -20,7 +20,8 @@ export const addUrl = ({ url, alias }: ShortURLInput) =>
       url,
       alias: alias || undefined
     })
-  });
+  })
+);
 
 export const getAllUrls = authRedirect(() =>
   fetch(backendUrl, { credentials: "include", headers })
