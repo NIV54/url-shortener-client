@@ -1,5 +1,8 @@
 export const jsonify =
-  <U, T extends (...args: any[]) => Promise<Response> = (...args: any[]) => Promise<Response>>(
+  <
+    U = null,
+    T extends (...args: any[]) => Promise<Response> = (...args: any[]) => Promise<Response>
+  >(
     serverCall: T
   ) =>
   async (...args: Parameters<T>) => {

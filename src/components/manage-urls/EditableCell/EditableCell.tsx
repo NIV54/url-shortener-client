@@ -14,6 +14,12 @@ import { State } from "../../../store";
 import { resetEditableCell, setEditableCell } from "../../../store/editable-cell/slice";
 
 const editUrlMutationFn = jsonify<ShortURLInput>(editUrl);
+const deleteUrlMutationFn = async (id: number) => {
+  const response = await deleteUrl(id);
+  if (response.ok) return;
+  const result = await response.json();
+  throw result;
+};
 
 // TODO: refactor - value and previous value
 export const EditableCell = (props: CellProps<any, string>) => {
@@ -26,6 +32,7 @@ export const EditableCell = (props: CellProps<any, string>) => {
   const [value, setValue] = useState(previousValue);
 
   const queryClient = useQueryClient();
+
   const editUrlMutation = useMutation<ShortURLInput, Error, ShortURLInput>(editUrlMutationFn, {
     onSuccess: result => {
       setPreviousValue(result.url);
@@ -34,6 +41,16 @@ export const EditableCell = (props: CellProps<any, string>) => {
     },
     onError: result => {
       setValue(previousValue); // error rollback
+      toast.error(result.message);
+    }
+  });
+
+  const deleteUrlMutation = useMutation<void, Error, number>(deleteUrlMutationFn, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKeys.OWNED_SHORT_URLS);
+      toast(messages.success);
+    },
+    onError: result => {
       toast.error(result.message);
     }
   });
@@ -64,17 +81,7 @@ export const EditableCell = (props: CellProps<any, string>) => {
     dispatch(resetEditableCell());
   };
 
-  const removeUrl = async () => {
-    // TODO: use mutation instead of this
-    const response = await deleteUrl(id);
-    if (response.ok) {
-      toast(messages.success);
-    } else {
-      const result = await response.json();
-      toast.error(result.message);
-    }
-    dispatch(resetEditableCell());
-  };
+  const removeUrl = () => deleteUrlMutation.mutate(id);
 
   return (
     <div onDoubleClick={e => e.stopPropagation()}>
