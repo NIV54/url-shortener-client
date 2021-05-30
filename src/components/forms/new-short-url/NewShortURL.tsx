@@ -15,6 +15,7 @@ import { classes } from "../../utils/classes";
 const addUrlMutationFn = async (values: ShortURLInput) => {
   const response = await addUrl(values);
   const result = await response.json();
+  if (!response.ok) throw result;
   return result;
 };
 
@@ -39,7 +40,6 @@ export const NewShortURL = () => {
       toast(messages.success);
     },
     onError: result => {
-      // FIXME: when a 400 status code is returned this code does not run
       setAlias("");
       toast.error(result.message);
     }
@@ -63,7 +63,7 @@ export const NewShortURL = () => {
         <input className="form-control" type="text" name="alias" ref={register()} />
       </div>
       <input type="submit" className="btn btn-primary" />
-      {alias && (
+      {addUrlMutation.isSuccess && (
         <div className="card mt-3">
           <div className="card-body">{alias}</div>
         </div>
