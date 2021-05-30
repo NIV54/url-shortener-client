@@ -2,5 +2,9 @@ export const jsonify =
   <U, T extends (...args: any[]) => Promise<Response> = (...args: any[]) => Promise<Response>>(
     serverCall: T
   ) =>
-  (...args: Parameters<T>) =>
-    serverCall(...args).then(res => res.json()) as Promise<U>;
+  async (...args: Parameters<T>) => {
+    const response = await serverCall(...args);
+    const result = await response.json();
+    if (!response.ok) throw result;
+    return result as Promise<U>;
+  };

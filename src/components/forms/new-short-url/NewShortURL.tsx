@@ -8,16 +8,12 @@ import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { addUrl, queryKeys } from "../../../common/api/urls";
+import { jsonify } from "../../../common/api/utils/jsonify";
 import { ShortURL, ShortURLInput } from "../../../common/types/ShortURL.type";
 import * as messages from "../../../common/user-messages";
 import { classes } from "../../utils/classes";
 
-const addUrlMutationFn = async (values: ShortURLInput) => {
-  const response = await addUrl(values);
-  const result = await response.json();
-  if (!response.ok) throw result;
-  return result;
-};
+const addUrlMutationFn = jsonify<ShortURL>(addUrl);
 
 export const NewShortURL = () => {
   const { search } = useLocation();
