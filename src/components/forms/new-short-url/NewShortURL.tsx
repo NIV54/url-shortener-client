@@ -3,13 +3,20 @@ import "react-toastify/dist/ReactToastify.css";
 import { parse } from "qs";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "react-query";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { addUrl } from "../../../common/api/urls";
-import { ShortURLInput } from "../../../common/types/ShortURL.type";
+import { addUrl, queryKeys } from "../../../common/api/urls";
+import { ShortURL, ShortURLInput } from "../../../common/types/ShortURL.type";
 import * as messages from "../../../common/user-messages";
 import { classes } from "../../utils/classes";
+
+const addUrlMutationFn = async (values: ShortURLInput) => {
+  const response = await addUrl(values);
+  const result: ShortURL | Error = await response.json();
+  return result;
+};
 
 export const NewShortURL = () => {
   const { search } = useLocation();
@@ -24,17 +31,21 @@ export const NewShortURL = () => {
 
   const [alias, setAlias] = useState("");
 
-  const onSubmit = async (values: ShortURLInput) => {
-    const response = await addUrl(values);
-    const result = await response.json();
-    if (response.ok) {
-      setAlias(result.alias);
+  const queryClient = useQueryClient();
+  const addUrlMutation = useMutation(addUrlMutationFn, {
+    onSuccess: result => {
+      setAlias((result as ShortURL).alias);
+      queryClient.invalidateQueries(queryKeys.OWNED_SHORT_URLS);
       toast(messages.success);
-    } else {
+    },
+    onError: result => {
+      // FIXME: when a 400 status code is returned this code does not run
       setAlias("");
-      toast.error(result.message);
+      toast.error((result as Error).message);
     }
-  };
+  });
+
+  const onSubmit = (values: ShortURLInput) => addUrlMutation.mutate(values);
 
   return (
     <form className="container" onSubmit={handleSubmit(onSubmit)}>
