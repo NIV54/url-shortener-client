@@ -14,12 +14,13 @@ import { useDispatch } from "react-redux";
 import { useFilters, useGlobalFilter, usePagination, useTable } from "react-table";
 
 import { getAllUrls, queryKeys } from "../../common/api/urls";
+import { jsonify } from "../../common/api/utils/jsonify";
 import { resetEditableCell } from "../../store/editable-cell/slice";
 
 import Filter from "./DefaultColumnFilter/DefaultColumnFilter";
 import { EditableCell } from "./EditableCell/EditableCell";
 
-const ownedUrlsQueryFn = () => getAllUrls().then(res => res.json());
+const ownedUrlsQueryFn = jsonify(getAllUrls);
 
 export const ManageURLs = () => {
   const dispatch = useDispatch();
