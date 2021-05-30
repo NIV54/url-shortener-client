@@ -14,7 +14,7 @@ import { classes } from "../../utils/classes";
 
 const addUrlMutationFn = async (values: ShortURLInput) => {
   const response = await addUrl(values);
-  const result: ShortURL | Error = await response.json();
+  const result = await response.json();
   return result;
 };
 
@@ -32,16 +32,16 @@ export const NewShortURL = () => {
   const [alias, setAlias] = useState("");
 
   const queryClient = useQueryClient();
-  const addUrlMutation = useMutation(addUrlMutationFn, {
+  const addUrlMutation = useMutation<ShortURL, Error, ShortURLInput>(addUrlMutationFn, {
     onSuccess: result => {
-      setAlias((result as ShortURL).alias);
+      setAlias(result.alias);
       queryClient.invalidateQueries(queryKeys.OWNED_SHORT_URLS);
       toast(messages.success);
     },
     onError: result => {
       // FIXME: when a 400 status code is returned this code does not run
       setAlias("");
-      toast.error((result as Error).message);
+      toast.error(result.message);
     }
   });
 
