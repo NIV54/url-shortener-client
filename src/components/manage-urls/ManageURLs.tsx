@@ -15,12 +15,13 @@ import { useFilters, useGlobalFilter, usePagination, useTable } from "react-tabl
 
 import { getAllUrls, queryKeys } from "../../common/api/urls";
 import { jsonify } from "../../common/api/utils/jsonify";
+import { ShortURL } from "../../common/types/ShortURL.type";
 import { resetEditableCell } from "../../store/editable-cell/slice";
 
 import Filter from "./DefaultColumnFilter/DefaultColumnFilter";
 import { EditableCell } from "./EditableCell/EditableCell";
 
-const ownedUrlsQueryFn = jsonify(getAllUrls);
+const ownedUrlsQueryFn = jsonify<ShortURL[]>(getAllUrls);
 
 export const ManageURLs = () => {
   const dispatch = useDispatch();
