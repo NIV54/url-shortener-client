@@ -7,11 +7,11 @@ import {
   ChevronLeft,
   ChevronRight
 } from "react-bootstrap-icons";
+import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 // @types/react-table is not so good,
 // that's why "any" and "!" is being used often in this file
 import { useFilters, useGlobalFilter, usePagination, useTable } from "react-table";
-import useSWR from "swr";
 
 import { getAllUrls } from "../../common/api/urls";
 import { resetEditableCell } from "../../store/editable-cell/slice";
@@ -19,12 +19,12 @@ import { resetEditableCell } from "../../store/editable-cell/slice";
 import Filter from "./DefaultColumnFilter/DefaultColumnFilter";
 import { EditableCell } from "./EditableCell/EditableCell";
 
+const ownedUrlsFetcher = () => getAllUrls().then(res => res.json());
+
 export const ManageURLs = () => {
   const dispatch = useDispatch();
 
-  const { data, error } = useSWR("getAllUrls", () => getAllUrls().then(res => res.json()), {
-    refreshInterval: 1000
-  });
+  const { data, isError } = useQuery("owned-short-urls", ownedUrlsFetcher, { retry: 2 });
 
   const columns = useMemo(
     () => [
@@ -73,7 +73,7 @@ export const ManageURLs = () => {
   );
   return (
     <div className="container" onDoubleClick={() => dispatch(resetEditableCell())}>
-      {error ? (
+      {isError ? (
         <div className="alert alert-danger" role="alert">
           Failed to load
         </div>
