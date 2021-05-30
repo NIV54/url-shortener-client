@@ -1,6 +1,6 @@
 import "./ManageURLs.scss";
 
-import React, { useMemo } from "react";
+import React, { useRef } from "react";
 import {
   ChevronDoubleLeft,
   ChevronDoubleRight,
@@ -26,24 +26,21 @@ export const ManageURLs = () => {
 
   const { data, isError } = useQuery(queryKeys.OWNED_SHORT_URLS, ownedUrlsQueryFn, { retry: 2 });
 
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Alias",
-        accessor: "alias"
-      },
-      {
-        Header: "URL",
-        accessor: "url",
-        Cell: EditableCell
-      }
-    ],
-    []
-  );
+  const columns = useRef([
+    {
+      Header: "Alias",
+      accessor: "alias"
+    },
+    {
+      Header: "URL",
+      accessor: "url",
+      Cell: EditableCell
+    }
+  ]).current;
 
-  const initialState: any = useMemo(() => ({ pageSize: 5 }), []);
+  const initialState: any = useRef({ pageSize: 5 }).current;
 
-  const defaultColumn: any = useMemo(() => ({ Filter }), []);
+  const defaultColumn: any = useRef({ Filter }).current;
 
   const {
     getTableProps,
