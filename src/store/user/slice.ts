@@ -11,6 +11,9 @@ interface User {
 
 export const getLoggedInUser = createAsyncThunk("user/getLoggedIn", async (_nothing, _thunkAPI) => {
   const response = await getUser();
+  if (!response.ok) {
+    return null;
+  }
   const json: { user: User } = await response.json();
   return json.user;
 });
