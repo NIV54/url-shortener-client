@@ -7,6 +7,10 @@ const backend = process.env.REACT_APP_BACKEND_URL;
 const endpoint = "api/url";
 const backendUrl = backend + endpoint;
 
+export const queryKeys = {
+  OWNED_SHORT_URLS: "OWNED_SHORT_URLS"
+};
+
 export const addUrl = ({ url, alias }: ShortURLInput) =>
   fetch(backendUrl, {
     method: "POST",

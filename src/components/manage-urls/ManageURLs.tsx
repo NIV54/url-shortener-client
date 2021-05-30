@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 // that's why "any" and "!" is being used often in this file
 import { useFilters, useGlobalFilter, usePagination, useTable } from "react-table";
 
-import { getAllUrls } from "../../common/api/urls";
+import { getAllUrls, queryKeys } from "../../common/api/urls";
 import { resetEditableCell } from "../../store/editable-cell/slice";
 
 import Filter from "./DefaultColumnFilter/DefaultColumnFilter";
@@ -24,7 +24,7 @@ const ownedUrlsFetcher = () => getAllUrls().then(res => res.json());
 export const ManageURLs = () => {
   const dispatch = useDispatch();
 
-  const { data, isError } = useQuery("owned-short-urls", ownedUrlsFetcher, { retry: 2 });
+  const { data, isError } = useQuery(queryKeys.OWNED_SHORT_URLS, ownedUrlsFetcher, { retry: 2 });
 
   const columns = useMemo(
     () => [
