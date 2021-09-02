@@ -4,6 +4,7 @@ import "./Login.scss";
 import React, { useState } from "react";
 import { Eye, EyeFill } from "react-bootstrap-icons";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -11,6 +12,7 @@ import { loginUser } from "../../../common/api/users";
 import * as routes from "../../../common/routes";
 import { Login as LoginFields } from "../../../common/types/Login.type";
 import * as messages from "../../../common/user-messages";
+import { setLoggedInUser } from "../../../store/user/slice";
 import { classes } from "../../utils/classes";
 import { LocationState } from "../../utils/types/LocationState.type";
 import { Maybe } from "../../utils/types/Maybe.type";
@@ -18,6 +20,8 @@ import { AuthFormWrapper } from "../common/AuthFormWrapper/AuthFormWrapper";
 import { Redirect } from "../common/Redirect/Redirect";
 
 export const Login = () => {
+  const dispatch = useDispatch();
+
   const { register, handleSubmit, errors } = useForm<LoginFields>({
     mode: "onSubmit"
   });
@@ -30,6 +34,7 @@ export const Login = () => {
     const response = await loginUser(values);
     const result = await response.json();
     if (response.ok) {
+      dispatch(setLoggedInUser(result.user));
       toast(messages.welcome);
       history.push(location.state?.from.pathname || routes.HOME);
     } else {

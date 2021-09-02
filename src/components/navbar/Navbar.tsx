@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -7,28 +7,22 @@ import { logoutUser } from "../../common/api/users";
 import * as routes from "../../common/routes";
 import * as messages from "../../common/user-messages";
 import { State } from "../../store";
-import { getLoggedInUser } from "../../store/user/slice";
 
 type NavItem = typeof routes[keyof typeof routes];
 
 export const Navbar = () => {
   const location = useLocation();
+  const history = useHistory();
 
-  const dispatch = useDispatch();
-  const user = useSelector((state: State) => state.user);
+  const user = useSelector((state: State) => state.user.user);
 
   const [activeNavItem, setActiveNavItem] = useState<NavItem>("/");
+
   useEffect(() => {
     setActiveNavItem(location.pathname as NavItem);
   }, [location.pathname]);
 
-  useEffect(() => {
-    dispatch(getLoggedInUser());
-  }, []);
-
   const isActive = (navItem: NavItem) => navItem === activeNavItem;
-
-  const history = useHistory();
 
   const onLogout = async () => {
     const response = await logoutUser();
