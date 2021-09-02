@@ -7,13 +7,13 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import * as routes from "../../common/routes";
-import { store } from "../../store";
-import { Login } from "../forms/login/Login";
-import { NewShortURL } from "../forms/new-short-url/NewShortURL";
-import { SignUp } from "../forms/sign-up/SignUp";
-import { ManageURLs } from "../manage-urls/ManageURLs";
-import { Navbar } from "../navbar/Navbar";
+import * as routes from "../common/routes";
+import { Login } from "../components/forms/login/Login";
+import { NewShortURL } from "../components/forms/new-short-url/NewShortURL";
+import { SignUp } from "../components/forms/sign-up/SignUp";
+import { ManageURLs } from "../components/manage-urls/ManageURLs";
+import { Navbar } from "../components/navbar/Navbar";
+import { store } from "../store";
 
 import { SEO } from "./SEO/SEO";
 
