@@ -9,10 +9,8 @@ import { ToastContainer } from "react-toastify";
 
 import * as routes from "../common/routes";
 import { Login } from "../components/forms/login/Login";
-import { NewShortURL } from "../components/forms/new-short-url/NewShortURL";
 import { SignUp } from "../components/forms/sign-up/SignUp";
-import { ManageURLs } from "../components/manage-urls/ManageURLs";
-import { Navbar } from "../components/navbar/Navbar";
+import { Home } from "../pages/home/Home";
 import { store } from "../store";
 
 import { SEO } from "./SEO/SEO";
@@ -35,13 +33,7 @@ function App() {
             </Route>
             <Route exact path={routes.HOME}>
               <SEO title="Home" pathSlug={routes.HOME} />
-              <main>
-                <Navbar />
-                <br />
-                <NewShortURL />
-                <br />
-                <ManageURLs />
-              </main>
+              <Home />
             </Route>
           </Switch>
           <ToastContainer position="bottom-right" autoClose={3000} pauseOnFocusLoss={false} />
