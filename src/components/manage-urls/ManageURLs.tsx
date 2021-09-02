@@ -26,7 +26,9 @@ const ownedUrlsQueryFn = jsonify<ShortURL[]>(getAllUrls);
 export const ManageURLs = () => {
   const dispatch = useDispatch();
 
-  const { data, isError } = useQuery(queryKeys.OWNED_SHORT_URLS, ownedUrlsQueryFn, { retry: 2 });
+  const { data, isError } = useQuery(queryKeys.OWNED_SHORT_URLS, ownedUrlsQueryFn, {
+    retry: 2
+  });
 
   const columns = useRef([
     {
@@ -43,6 +45,15 @@ export const ManageURLs = () => {
   const initialState: any = useRef({ pageSize: 5 }).current;
 
   const defaultColumn: any = useRef({ Filter }).current;
+
+  /**
+   * This variable is being used so that the reference for the data
+   * in `useTable` hook will not be changed.
+   * This resolves a bug of endless renders that origins in `useFilters` hook.
+   * `data` is being used as a dependency in a `useEffect` hook inside there,
+   * and if `data` reference changes it causes the `useEffect` hook to be called over and over again
+   */
+  const defaultData: any = useRef([]).current;
 
   const {
     getTableProps,
@@ -62,7 +73,7 @@ export const ManageURLs = () => {
   }: any = useTable(
     {
       columns,
-      data: data || [],
+      data: data || defaultData,
       defaultColumn,
       initialState
     },
