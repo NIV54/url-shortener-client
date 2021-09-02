@@ -9,15 +9,15 @@ import { getLoggedInUser } from "../../store/user/slice";
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const isGuest = useSelector((state: State) => state.user.isGuest);
+  const userState = useSelector((state: State) => state.user);
 
   useEffect(() => {
-    if (!isGuest) {
+    if (!userState.isGuest && userState.user === null) {
       dispatch(getLoggedInUser());
     }
-  }, [isGuest]);
+  }, [userState.isGuest]);
 
-  if (isGuest) {
+  if (userState.isGuest) {
     return <NewShortURL />;
   }
 
