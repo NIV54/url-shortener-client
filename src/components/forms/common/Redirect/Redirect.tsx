@@ -6,11 +6,20 @@ import * as routes from "../../../../common/routes";
 interface RedirectProps {
   displayText: string;
   to: typeof routes[keyof typeof routes];
+  linkProps?: Partial<React.AnchorHTMLAttributes<HTMLAnchorElement>>;
 }
 
-export const Redirect = ({ displayText, to, children }: PropsWithChildren<RedirectProps>) => (
+export const Redirect = ({
+  displayText,
+  to,
+  children,
+  linkProps = {}
+}: PropsWithChildren<RedirectProps>) => (
   <>
     {children}
-    <Link to={to}> {displayText}</Link>
+    <Link {...linkProps} to={to}>
+      {" "}
+      {displayText}
+    </Link>
   </>
 );
